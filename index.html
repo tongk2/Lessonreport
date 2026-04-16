@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>영어 과외 · 수업 보고서</title>
+<style>
+:root {
+  --blue:#1D4ED8;--blue2:#3B82F6;--blue-lt:#EFF6FF;--blue-bd:#BFDBFE;
+  --green:#059669;--green-lt:#ECFDF5;--amber:#D97706;--amber-lt:#FFFBEB;
+  --purple:#7C3AED;--purple-lt:#F5F3FF;--gray:#6B7280;--dark:#111827;
+  --line:#E5E7EB;--bg:#F8FAFC;--radius:14px;--shadow:0 2px 16px rgba(0,0,0,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--dark);font-size:16px;line-height:1.6;padding-bottom:80px;}
+.page-header{background:linear-gradient(135deg,#1e3a8a 0%,#1D4ED8 60%,#3B82F6 100%);color:#fff;padding:36px 24px 28px;text-align:center;position:relative;overflow:hidden;}
+.page-header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 24px,rgba(255,255,255,.03) 24px,rgba(255,255,255,.03) 48px);}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-.5px;position:relative;}
+.page-header p{font-size:13px;opacity:.75;margin-top:4px;position:relative;}
+.toolbar{display:flex;gap:10px;justify-content:center;align-items:center;padding:12px 20px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06);flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all .15s;-webkit-tap-highlight-color:transparent;}
+.btn-primary{background:var(--blue);color:#fff;}
+.btn-primary:active{background:#1e40af;transform:scale(.97);}
+.btn-ghost{background:var(--line);color:var(--dark);}
+.btn-ghost:active{background:#d1d5db;transform:scale(.97);}
+.pdf-tip{font-size:12px;color:var(--gray);background:#F9FAFB;border:1px solid var(--line);border-radius:8px;padding:6px 12px;text-align:center;}
+.main{max-width:780px;margin:0 auto;padding:0 16px;}
+.section{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-top:20px;overflow:hidden;}
+.section-head{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--blue-lt);border-bottom:2px solid var(--blue-bd);}
+.section-head .icon{font-size:20px;}
+.section-head h2{font-size:15px;font-weight:800;color:var(--blue);}
+.section-body{padding:18px;}
+.field-grid{display:grid;gap:14px;}
+.field-grid.col2{grid-template-columns:1fr 1fr;}
+.field{display:flex;flex-direction:column;gap:5px;}
+.field label{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.3px;text-transform:uppercase;}
+[contenteditable]{width:100%;min-height:44px;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;font-family:inherit;color:var(--dark);background:#fff;outline:none;transition:border-color .15s,box-shadow .15s;white-space:pre-wrap;word-break:break-word;-webkit-tap-highlight-color:transparent;}
+[contenteditable]:empty::before{content:attr(data-placeholder);color:#9CA3AF;pointer-events:none;}
+[contenteditable]:focus{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(59,130,246,.15);}
+[contenteditable].tall{min-height:80px;}
+.row-table{width:100%;border-collapse:collapse;}
+.row-table td{padding:4px 0;vertical-align:top;}
+.row-table .lbl{width:130px;padding-right:10px;padding-top:13px;font-size:13px;font-weight:700;color:var(--blue);white-space:nowrap;}
+.eval-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);}
+.eval-row:last-child{border-bottom:none;}
+.eval-label{font-weight:700;font-size:14px;color:var(--purple);flex:1;min-width:130px;}
+.star-group{display:flex;gap:6px;}
+.star{font-size:28px;cursor:pointer;line-height:1;-webkit-tap-highlight-color:transparent;filter:grayscale(1) opacity(.25);transition:filter .1s,transform .1s;user-select:none;}
+.star.lit{filter:none;}
+.star:active{transform:scale(1.3);}
+.status-group{display:flex;gap:8px;flex-wrap:wrap;}
+.status-btn{padding:8px 16px;border-radius:20px;border:1.5px solid var(--line);background:#fff;font-size:14px;font-weight:600;cursor:pointer;color:var(--gray);font-family:inherit;-webkit-tap-highlight-color:transparent;transition:all .15s;}
+.status-btn.done{background:#D1FAE5;border-color:#059669;color:#065F46;}
+.status-btn.partial{background:#FEF3C7;border-color:#D97706;color:#92400E;}
+.status-btn.none{background:#FEE2E2;border-color:#EF4444;color:#991B1B;}
+.hw-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.hw-box{border:1.5px solid var(--line);border-radius:12px;overflow:hidden;}
+.hw-box-head{background:var(--blue);color:#fff;padding:10px 14px;font-size:13px;font-weight:700;}
+.hw-box-body{padding:12px;}
+.hw-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;}
+.hw-num{font-size:13px;font-weight:700;color:var(--blue);min-width:20px;padding-top:11px;}
+.hw-item [contenteditable]{min-height:40px;font-size:14px;padding:8px 10px;}
+.comment-block{border-radius:12px;overflow:hidden;margin-bottom:12px;border:1.5px solid var(--line);}
+.comment-head{padding:11px 16px;font-size:14px;font-weight:800;}
+.comment-head.green{background:var(--green-lt);color:var(--green);}
+.comment-head.amber{background:var(--amber-lt);color:var(--amber);}
+.comment-head.purple{background:var(--purple-lt);color:var(--purple);}
+.comment-block [contenteditable]{border:none;border-radius:0;border-top:1px solid var(--line);min-height:88px;}
+.comment-block [contenteditable]:focus{box-shadow:none;border-top-color:var(--blue2);}
+#toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:12px 24px;border-radius:30px;font-size:14px;font-weight:600;opacity:0;transition:all .3s;pointer-events:none;z-index:9999;white-space:nowrap;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@media print{
+  body{background:#fff;padding:0;font-size:12px;}
+  .toolbar{display:none!important;}
+  .page-header{background:#1D4ED8!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:18px 16px;}
+  .section{box-shadow:none;border:1px solid #e5e7eb;margin-top:12px;page-break-inside:avoid;}
+  .main{padding:0 6px;}
+  [contenteditable]{border:none;border-bottom:1px solid #D1D5DB;border-radius:0;padding:3px 4px;min-height:unset;box-shadow:none!important;}
+  [contenteditable]:empty::before{content:'';}
+  .comment-block [contenteditable]{border:none;border-top:1px solid #e5e7eb;}
+  .star{font-size:18px;}
+  .status-btn{font-size:11px;padding:3px 8px;}
+  .hw-box-head,.section-head{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+@media(max-width:520px){
+  .field-grid.col2{grid-template-columns:1fr;}
+  .hw-grid{grid-template-columns:1fr;}
+  .eval-label{min-width:110px;font-size:13px;}
+  .row-table .lbl{width:110px;font-size:12px;}
+}
+</style>
+</head>
+<body>
+<div class="page-header">
+  <h1>📘 영어 과외 · 수업 보고서</h1>
+  <p>English Tutoring Lesson Report</p>
+</div>
+<div class="toolbar">
+  <button class="btn btn-ghost" onclick="clearAll()">🗑 초기화</button>
+  <button class="btn btn-primary" onclick="saveLocal()">💾 임시저장</button>
+  <button class="btn btn-primary" onclick="window.print()" style="background:#059669;">🖨️ 프린트 / PDF</button>
+</div>
+<div class="main">
+
+  <div class="section">
+    <div class="section-head"><span class="icon">📌</span><h2>기본 정보</h2></div>
+    <div class="section-body">
+      <div class="field-grid col2">
+        <div class="field"><label>학생명</label><div contenteditable="true" id="s_name" data-placeholder="홍길동"></div></div>
+        <div class="field"><label>담당 선생님</label><div contenteditable="true" id="s_teacher" data-placeholder="이름"></div></div>
+        <div class="field"><label>수업 시간</label><div contenteditable="true" id="s_time" data-placeholder="오후 4:00 ~ 6:00"></div></div>
+        <div class="field"><label>총 누적 수업 횟수</label><div contenteditable="true" id="s_total" data-placeholder="12회차"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="icon">📖</span><h2>오늘의 진도</h2></div>
+    <div class="section-body">
+      <table class="row-table">
+        <tr><td class="lbl">교재 / 학습 자료</td><td><div contenteditable="true" id="p_book" data-placeholder="예) 수능특강 영어, 자체 프린트"></div></td></tr>
+        <tr><td colspan="2" style="height:8px"></td></tr>
+        <tr><td class="lbl">오늘 진도 범위</td><td><div contenteditable="true" id="p_range" data-placeholder="예) Unit 3 · pp.24–28"></div></td></tr>
+        <tr><td colspan="2" style="height:8px"></td></tr>
+        <tr><td class="lbl">주요 학습 내용</td><td><div contenteditable="true" id="p_content" data-placeholder="예) 관계대명사 개념 정리, 빈칸 추론 3문제" class="tall"></div></td></tr>
+        <tr><td colspan="2" style="height:8px"></td></tr>
+        <tr><td class="lbl">다음 수업 예정</td><td><div contenteditable="true" id="p_next" data-placeholder="예) Unit 4 · 어법 문제 집중"></div></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head" style="background:#F5F3FF;border-color:#DDD6FE"><span class="icon">⭐</span><h2 style="color:var(--purple)">수업 태도 &amp; 수행 평가</h2></div>
+    <div class="section-body" id="evalSection"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head" style="background:#FFFBEB;border-color:#FDE68A"><span class="icon">📝</span><h2 style="color:var(--amber)">과제</h2></div>
+    <div class="section-body">
+      <div class="hw-grid">
+        <div class="hw-box">
+          <div class="hw-box-head">📌 이전 수업 과제 확인</div>
+          <div class="hw-box-body">
+            <div class="status-group" style="margin-bottom:12px">
+              <button class="status-btn" id="prev_done"    onclick="setPrevStatus('done')">✅ 완료</button>
+              <button class="status-btn" id="prev_partial" onclick="setPrevStatus('partial')">🔄 일부 완료</button>
+              <button class="status-btn" id="prev_none"    onclick="setPrevStatus('none')">⏸ 미완료</button>
+            </div>
+            <div class="field"><label>메모</label><div contenteditable="true" id="prev_memo" data-placeholder="예) 단어 30개 중 20개만 외움" class="tall"></div></div>
+          </div>
+        </div>
+        <div class="hw-box">
+          <div class="hw-box-head">📚 오늘 부과된 과제</div>
+          <div class="hw-box-body" id="hwList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head" style="background:var(--green-lt);border-color:#6EE7B7"><span class="icon">💬</span><h2 style="color:var(--green)">선생님 코멘트</h2></div>
+    <div class="section-body">
+      <div class="comment-block"><div class="comment-head green">✅ &nbsp;잘한 점 / 칭찬할 부분</div><div contenteditable="true" id="c_good" data-placeholder="예) 오늘 문법 설명을 처음보다 훨씬 빠르게 이해했습니다."></div></div>
+      <div class="comment-block"><div class="comment-head amber">⚠️ &nbsp;보완이 필요한 부분</div><div contenteditable="true" id="c_bad" data-placeholder="예) 영작 시 주어·동사 일치 오류가 반복됩니다."></div></div>
+      <div class="comment-block"><div class="comment-head purple">📣 &nbsp;학부모님께 전달 사항</div><div contenteditable="true" id="c_parent" data-placeholder="예) 이번 주 단어 30개 복습 부탁드립니다."></div></div>
+    </div>
+  </div>
+
+  <div class="section" style="margin-bottom:24px">
+    <div class="section-head"><span class="icon">🗓️</span><h2>다음 수업 안내</h2></div>
+    <div class="section-body">
+      <table class="row-table">
+        <tr><td class="lbl">다음 수업 일시</td><td><div contenteditable="true" id="n_date" data-placeholder="예) 1월 15일 (수) 오후 4시"></div></td></tr>
+        <tr><td colspan="2" style="height:8px"></td></tr>
+        <tr><td class="lbl">준비물</td><td><div contenteditable="true" id="n_prep" data-placeholder="예) 단어장, 수능특강 교재"></div></td></tr>
+        <tr><td colspan="2" style="height:8px"></td></tr>
+        <tr><td class="lbl">기타 안내사항</td><td><div contenteditable="true" id="n_etc" data-placeholder="예) 다음 주 학교 시험 범위 확인 예정"></div></td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+<div id="toast"></div>
+
+<script>
+const EVAL_ITEMS=[{e:"🎯",l:"수업 집중도"},{e:"📝",l:"과제 완료도"},{e:"💡",l:"이해도 / 참여도"},{e:"🌟",l:"전반적 수업 태도"}];
+const HW_COUNT=4;
+const evalRatings={};
+
+const es=document.getElementById('evalSection');
+EVAL_ITEMS.forEach((item,i)=>{
+  evalRatings[i]=0;
+  const row=document.createElement('div');
+  row.className='eval-row';
+  row.innerHTML=`<div class="eval-label">${item.e} ${item.l}</div><div class="star-group">${[1,2,3,4,5].map(s=>`<span class="star" data-row="${i}" data-val="${s}" ontouchstart="setStar(${i},${s})" onclick="setStar(${i},${s})">★</span>`).join('')}</div>`;
+  es.appendChild(row);
+});
+
+function setStar(row,val){
+  evalRatings[row]=val;
+  document.querySelectorAll(`.star[data-row="${row}"]`).forEach(s=>{s.classList.toggle('lit',parseInt(s.dataset.val)<=val);});
+  scheduleAutoSave();
+}
+
+const hwl=document.getElementById('hwList');
+for(let i=1;i<=HW_COUNT;i++){
+  const div=document.createElement('div');
+  div.className='hw-item';
+  div.innerHTML=`<span class="hw-num">${i}.</span><div contenteditable="true" id="hw${i}" data-placeholder="과제 내용"></div>`;
+  hwl.appendChild(div);
+}
+
+let prevStatus='';
+function setPrevStatus(type){
+  prevStatus=type;
+  ['done','partial','none'].forEach(t=>{
+    const b=document.getElementById(`prev_${t}`);
+    b.className='status-btn'+(t===type?` ${type}`:'');
+  });
+  scheduleAutoSave();
+}
+
+const ALL_IDS=['s_name','s_teacher','s_time','s_total','p_book','p_range','p_content','p_next','prev_memo','c_good','c_bad','c_parent','n_date','n_prep','n_etc',...Array.from({length:HW_COUNT},(_,i)=>`hw${i+1}`)];
+
+let saveTimer;
+function scheduleAutoSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveLocal,1500);}
+document.addEventListener('input',scheduleAutoSave);
+
+function gatherData(){
+  const data={fields:{},evalRatings:{...evalRatings},prevStatus};
+  ALL_IDS.forEach(id=>{const el=document.getElementById(id);if(el)data.fields[id]=el.innerHTML;});
+  return data;
+}
+function applyData(data){
+  if(!data)return;
+  Object.entries(data.fields||{}).forEach(([id,html])=>{const el=document.getElementById(id);if(el)el.innerHTML=html;});
+  Object.entries(data.evalRatings||{}).forEach(([row,val])=>{if(val>0)setStar(parseInt(row),val);});
+  if(data.prevStatus)setPrevStatus(data.prevStatus);
+}
+function saveLocal(){
+  try{localStorage.setItem('tutor_daily_v2',JSON.stringify(gatherData()));showToast('💾 임시저장 완료');}
+  catch(e){showToast('저장 실패');}
+}
+function clearAll(){
+  if(!confirm('입력한 내용을 모두 지울까요?'))return;
+  localStorage.removeItem('tutor_daily_v2');
+  location.reload();
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  try{const saved=localStorage.getItem('tutor_daily_v2');if(saved)applyData(JSON.parse(saved));}catch(e){}
+});
+</script>
+</body>
+</html>
